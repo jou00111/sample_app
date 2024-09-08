@@ -5,10 +5,12 @@ class ListsController < ApplicationController
 
   def create
 
-    list = List.new(list_params)
-    list.save
-
-    redirect_to list_path(list.id)
+    @list = List.new(list_params)
+    if @list.save
+      redirect_to list_path(@list.id)
+    else
+      render :new
+    end
 
   end
 
@@ -33,7 +35,7 @@ class ListsController < ApplicationController
   def destroy
     list = List.find(params[:id])
     list.destroy
-    redirect_to '/list'
+    redirect_to '/lists'
   end
 
 
